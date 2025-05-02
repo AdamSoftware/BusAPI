@@ -1,5 +1,5 @@
 package models
 
-type GenericModel struct {
-  ID int `json:"id"`
+type GenericModel interface {
+  GetId() int 
 }

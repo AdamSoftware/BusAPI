@@ -7,3 +7,8 @@ type Student struct {
   LastName string `json:"last_name"`
   Photo string `json:"photo"` 
 }
+
+
+func (s *Student) GetId() int {
+  return s.StudentId
+}

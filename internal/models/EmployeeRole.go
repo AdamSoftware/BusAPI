@@ -4,3 +4,6 @@ type EmployeeRole struct {
   EmplyeeRoleId int `json:"id"`
   RoleName string `json:"role_name"`
 }
+
+
+func (e *EmployeeRole) GetId() int {return e.EmplyeeRoleId}

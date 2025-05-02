@@ -5,3 +5,6 @@ type BusStudent struct {
   BusId int `json:"bus_id"`
   StudentId int `json:"student_id"`
 }
+
+
+func (b *BusStudent) GetId() int {return b.BusStudentId}
