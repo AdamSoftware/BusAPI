@@ -5,7 +5,7 @@ import (
 )
 
 
-type UserRepository interface {
+type UserRepo interface {
   FindById(UserId int) (*models.User, error)
   FindByRole(EmployeeRole int) ([]*models.User, error)
   Insert(User *models.User) (*models.User, error)
