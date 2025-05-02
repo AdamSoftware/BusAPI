@@ -8,3 +8,6 @@ type Employee struct {
   Phone string `json:"phone"`
   Email string `json:"email"`
 }
+
+
+func (e *Employee) GetId() int {return e.EmployeeId}

@@ -6,3 +6,6 @@ type Route struct {
   GeoJson string `json:"geo_json"`
   RouteName string `json:"route_name"`
 }
+
+
+func (r *Route) GetId() int {return r.RouteId}

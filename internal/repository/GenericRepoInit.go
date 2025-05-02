@@ -37,19 +37,20 @@ func NewGenericRepo[T models.GenericModel](db *gorm.DB, logger *logrus.Logger) (
 }
 
 // FindById returns a single entity by id
-func (r *GenericRepoInit[T]) FindById(id int) (*T, error) {
+func (r *GenericRepoInit[T]) FindById(id int) (T, error) {
 	var entity T
 	err := r.db.First(&entity, id).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		r.log.Warnf("Entity with id %d not found", id)
-    return nil, fmt.Errorf("Entity with id %d not found: %w", id, err)
+    var zero T
+    return zero, fmt.Errorf("Entity with id %d not found: %w", id, err)
 	}
 
-	return &entity, nil
+	return entity, nil
 }
 
 // Get returns all entities
-func (r *GenericRepoInit[T]) Get() ([]*T, error) {var entities []*T
+func (r *GenericRepoInit[T]) Get() ([]T, error) {var entities []T
   err := r.db.Find(&entities).Error
   if err != nil {
     r.log.Errorf("Error retrieving entities: %v", err)
@@ -61,23 +62,25 @@ func (r *GenericRepoInit[T]) Get() ([]*T, error) {var entities []*T
 
 
 // Insert adds a new entity to the database
-func (r *GenericRepoInit[T]) Insert(entity *T) (*T, error) {
+func (r *GenericRepoInit[T]) Insert(entity T) (T, error) {
 
   err := r.db.Create(entity).Error
   if err != nil {
     r.log.Errorf("Error inserting entity: %v", err)
-    return nil, fmt.Errorf("Error inserting entity: %v", err)
+    var zero T
+    return zero, fmt.Errorf("Error inserting entity: %v", err)
   }
   return entity, err
 }
 
 
 // Update modifies an existing entity in the database
-func (r *GenericRepoInit[T]) Update(entity *T) (*T, error) {
+func (r *GenericRepoInit[T]) Update(entity T) (T, error) {
   err := r.db.Save(entity).Error
   if err != nil {
     r.log.Errorf("Error updating entity: %v", err)
-    return nil, err
+    var zero T
+    return zero, err
   }
   return entity, nil
 }

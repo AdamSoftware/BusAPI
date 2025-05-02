@@ -7,3 +7,8 @@ type User struct {
   Username string `json:"username"`
   Password string `json:"password"`
 }
+
+
+func (u *User) GetId() int {
+  return u.UserId
+}

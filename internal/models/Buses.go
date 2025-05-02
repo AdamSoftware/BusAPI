@@ -7,3 +7,6 @@ type Bus struct {
   EmployeeId int `json:"employee_id"`
   Compacity int `json:"compacity"`
 }
+
+
+func (b *Bus) GetId() int {return b.BusId}

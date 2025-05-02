@@ -11,5 +11,6 @@ type UserRepo interface {
   Insert(User *models.User) (*models.User, error)
   Update(User *models.User) (*models.User, error)
   Delete(UserId int) error
-  FindAll() ([]*models.User, error)
+  Get() ([]*models.User, error)
 }
+
