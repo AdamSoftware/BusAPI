@@ -26,23 +26,23 @@ func NewBusStudentRepo(db *gorm.DB, logger *logrus.Logger) (*BusStudentRepoInit,
 
 // using the CRUD operations from the generic repo 
 // FindbyId CRUD operation receiving the entity id as an argument
-func (r *BusStudentRepoInit) FindById(userId int) (*models.BusStudent, error) {
-  return r.generic.FindById(userId)
+func (r *BusStudentRepoInit) FindById(BusStudentId int) (*models.BusStudent, error) {
+  return r.generic.FindById(BusStudentId)
 }
 
 // insert CRUD operation receiving the entity as an argument
-func (r *BusStudentRepoInit) Insert(user *models.BusStudent) (*models.BusStudent, error) {
-  return r.generic.Insert(user)
+func (r *BusStudentRepoInit) Insert(BusStudent *models.BusStudent) (*models.BusStudent, error) {
+  return r.generic.Insert(BusStudent)
 }
 
 // Update CRUD operation receiving the entity as an argument
-func (r *BusStudentRepoInit) Update(user *models.BusStudent) (*models.BusStudent, error) {
-  return r.generic.Update(user)
+func (r *BusStudentRepoInit) Update(BusStudent *models.BusStudent) (*models.BusStudent, error) {
+  return r.generic.Update(BusStudent)
 }
 
 // Delete CRUD operation receiving the entity id as an argument
-func (r *BusStudentRepoInit) Delete(userId int) error {
-  return r.generic.Delete(userId)
+func (r *BusStudentRepoInit) Delete(BusStudentId int) error {
+  return r.generic.Delete(BusStudentId)
 }
 
 // Get CRUD operation returning all entities

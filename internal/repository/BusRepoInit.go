@@ -14,7 +14,7 @@ type BusRepoInit struct {
 
 
 func NewBusRepo(db *gorm.DB, logger *logrus.Logger) (*BusRepoInit, error) {
-  // Create a new instance of GenericRepoInit for User model
+  // Create a new instance of GenericRepoInit for Bus model
   genericRepo, err := NewGenericRepo[*models.Bus](db, logger)
   if err != nil {
     return nil, fmt.Errorf("failed to create BusRepo: %w", err)
@@ -26,23 +26,23 @@ func NewBusRepo(db *gorm.DB, logger *logrus.Logger) (*BusRepoInit, error) {
 
 // using the CRUD operations from the generic repo 
 // FindbyId CRUD operation receiving the entity id as an argument
-func (r *BusRepoInit) FindById(userId int) (*models.Bus, error) {
-  return r.generic.FindById(userId)
+func (r *BusRepoInit) FindById(BusId int) (*models.Bus, error) {
+  return r.generic.FindById(BusId)
 }
 
 // insert CRUD operation receiving the entity as an argument
-func (r *BusRepoInit) Insert(user *models.Bus) (*models.Bus, error) {
-  return r.generic.Insert(user)
+func (r *BusRepoInit) Insert(Bus *models.Bus) (*models.Bus, error) {
+  return r.generic.Insert(Bus)
 }
 
 // Update CRUD operation receiving the entity as an argument
-func (r *BusRepoInit) Update(user *models.Bus) (*models.Bus, error) {
-  return r.generic.Update(user)
+func (r *BusRepoInit) Update(Bus *models.Bus) (*models.Bus, error) {
+  return r.generic.Update(Bus)
 }
 
 // Delete CRUD operation receiving the entity id as an argument
-func (r *BusRepoInit) Delete(userId int) error {
-  return r.generic.Delete(userId)
+func (r *BusRepoInit) Delete(BusId int) error {
+  return r.generic.Delete(BusId)
 }
 
 // Get CRUD operation returning all entities

@@ -16,7 +16,7 @@ type StudentRepoInit struct {
 
 
 func NewStudentRepo(db *gorm.DB, logger *logrus.Logger) (*StudentRepoInit, error) {
-  // Create a new instance of GenericRepoInit for User model
+  // Create a new instance of GenericRepoInit for Student model
   genericRepo, err := NewGenericRepo[*models.Student](db, logger)
   if err != nil {
     return nil, fmt.Errorf("failed to create StudentRepo: %w", err)
@@ -28,23 +28,23 @@ func NewStudentRepo(db *gorm.DB, logger *logrus.Logger) (*StudentRepoInit, error
 
 // using the CRUD operations from the generic repo 
 // FindbyId CRUD operation receiving the entity id as an argument
-func (r *StudentRepoInit) FindById(userId int) (*models.Student, error) {
-  return r.generic.FindById(userId)
+func (r *StudentRepoInit) FindById(StudentId int) (*models.Student, error) {
+  return r.generic.FindById(StudentId)
 }
 
 // insert CRUD operation receiving the entity as an argument
-func (r *StudentRepoInit) Insert(user *models.Student) (*models.Student, error) {
-  return r.generic.Insert(user)
+func (r *StudentRepoInit) Insert(Student *models.Student) (*models.Student, error) {
+  return r.generic.Insert(Student)
 }
 
 // Update CRUD operation receiving the entity as an argument
-func (r *StudentRepoInit) Update(user *models.Student) (*models.Student, error) {
-  return r.generic.Update(user)
+func (r *StudentRepoInit) Update(Student *models.Student) (*models.Student, error) {
+  return r.generic.Update(Student)
 }
 
 // Delete CRUD operation receiving the entity id as an argument
-func (r *StudentRepoInit) Delete(userId int) error {
-  return r.generic.Delete(userId)
+func (r *StudentRepoInit) Delete(StudentId int) error {
+  return r.generic.Delete(StudentId)
 }
 
 // Get CRUD operation returning all entities

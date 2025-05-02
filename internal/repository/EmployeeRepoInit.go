@@ -24,23 +24,23 @@ func NewEmployeeRepo(db *gorm.DB, logger *logrus.Logger) (*EmployeeRepoInit, err
 
 // using the CRUD operations from the generic repo 
 // FindbyId CRUD operation receiving the entity id as an argument
-func (r *EmployeeRepoInit) FindById(userId int) (*models.Employee, error) {
-  return r.generic.FindById(userId)
+func (r *EmployeeRepoInit) FindById(EmployeeId int) (*models.Employee, error) {
+  return r.generic.FindById(EmployeeId)
 }
 
 // insert CRUD operation receiving the entity as an argument
-func (r *EmployeeRepoInit) Insert(user *models.Employee) (*models.Employee, error) {
-  return r.generic.Insert(user)
+func (r *EmployeeRepoInit) Insert(Employee *models.Employee) (*models.Employee, error) {
+  return r.generic.Insert(Employee)
 }
 
 // Update CRUD operation receiving the entity as an argument
-func (r *EmployeeRepoInit) Update(user *models.Employee) (*models.Employee, error) {
-  return r.generic.Update(user)
+func (r *EmployeeRepoInit) Update(Employee *models.Employee) (*models.Employee, error) {
+  return r.generic.Update(Employee)
 }
 
 // Delete CRUD operation receiving the entity id as an argument
-func (r *EmployeeRepoInit) Delete(userId int) error {
-  return r.generic.Delete(userId)
+func (r *EmployeeRepoInit) Delete(EmployeeId int) error {
+  return r.generic.Delete(EmployeeId)
 }
 
 // Get CRUD operation returning all entities

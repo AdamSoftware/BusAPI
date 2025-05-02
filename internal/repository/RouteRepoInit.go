@@ -23,23 +23,23 @@ func NewRouteRepo(db *gorm.DB, logger *logrus.Logger) (*RouteRepoInit, error) {
 
 // using the CRUD operations from the generic repo 
 // FindbyId CRUD operation receiving the entity id as an argument
-func (r *RouteRepoInit) FindById(userId int) (*models.Route, error) {
-  return r.generic.FindById(userId)
+func (r *RouteRepoInit) FindById(RouteId int) (*models.Route, error) {
+  return r.generic.FindById(RouteId)
 }
 
 // insert CRUD operation receiving the entity as an argument
-func (r *RouteRepoInit) Insert(user *models.Route) (*models.Route, error) {
-  return r.generic.Insert(user)
+func (r *RouteRepoInit) Insert(Route *models.Route) (*models.Route, error) {
+  return r.generic.Insert(Route)
 }
 
 // Update CRUD operation receiving the entity as an argument
-func (r *RouteRepoInit) Update(user *models.Route) (*models.Route, error) {
-  return r.generic.Update(user)
+func (r *RouteRepoInit) Update(Route *models.Route) (*models.Route, error) {
+  return r.generic.Update(Route)
 }
 
 // Delete CRUD operation receiving the entity id as an argument
-func (r *RouteRepoInit) Delete(userId int) error {
-  return r.generic.Delete(userId)
+func (r *RouteRepoInit) Delete(RouteId int) error {
+  return r.generic.Delete(RouteId)
 }
 
 // Get CRUD operation returning all entities

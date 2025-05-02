@@ -25,23 +25,23 @@ func NewSchoolRepo(db *gorm.DB, logger *logrus.Logger) (*SchoolRepoInit, error) 
 
 // using the CRUD operations from the generic repo 
 // FindbyId CRUD operation receiving the entity id as an argument
-func (r *SchoolRepoInit) FindById(userId int) (*models.School, error) {
-  return r.generic.FindById(userId)
+func (r *SchoolRepoInit) FindById(SchoolId int) (*models.School, error) {
+  return r.generic.FindById(SchoolId)
 }
 
 // insert CRUD operation receiving the entity as an argument
-func (r *SchoolRepoInit) Insert(user *models.School) (*models.School, error) {
-  return r.generic.Insert(user)
+func (r *SchoolRepoInit) Insert(School *models.School) (*models.School, error) {
+  return r.generic.Insert(School)
 }
 
 // Update CRUD operation receiving the entity as an argument
-func (r *SchoolRepoInit) Update(user *models.School) (*models.School, error) {
-  return r.generic.Update(user)
+func (r *SchoolRepoInit) Update(School *models.School) (*models.School, error) {
+  return r.generic.Update(School)
 }
 
 // Delete CRUD operation receiving the entity id as an argument
-func (r *SchoolRepoInit) Delete(userId int) error {
-  return r.generic.Delete(userId)
+func (r *SchoolRepoInit) Delete(SchoolId int) error {
+  return r.generic.Delete(SchoolId)
 }
 
 // Get CRUD operation returning all entities
