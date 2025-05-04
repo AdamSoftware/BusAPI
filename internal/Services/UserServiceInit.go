@@ -25,9 +25,9 @@
 //
 //   // check to see if the user already exists
 //   if err != nil && existingUser != nil {
-//     return nil, errors.New("User is already herek") 
+//     return nil, errors.New("User is already herek")
 //   }
-//   return s.repo.Insert(user) 
+//   return s.repo.Insert(user)
 //
 // }
 //

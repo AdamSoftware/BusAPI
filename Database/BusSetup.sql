@@ -9,10 +9,10 @@ CREATE TABLE Routes (
 );
 
 CREATE TABLE Users (
-    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INTEGER PRIMARY KEY AUTOINCREMENT UnIQUE,
     EmployeeID INT NOT NULL,
     EmployeeRoles INT NOT NULL,
-    Username TEXT NOT NULL UNIQUE,
+    Username TEXT NOT NULL,
     Password TEXT NOT NULL,
     FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
     FOREIGN KEY (EmployeeRoles) REFERENCES EmployeeRoles(EmployeeRoleID)
