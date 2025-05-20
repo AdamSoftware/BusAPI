@@ -61,37 +61,39 @@ func (r *GenericRepoInit[T]) Get() ([]T, error) {
 }
 
 // Insert adds a new entity to the database
+
 func (r *GenericRepoInit[T]) Insert(entity T) (T, error) {
+    err := r.db.Create(&entity).Error // must pass pointer
+    if err != nil {
+        r.log.Errorf("Error inserting entity: %v", err)
+        var zero T
+        return zero, fmt.Errorf("Error inserting entity: %v", err)
+    }
 
-	err := r.db.Create(entity).Error
-	if err != nil {
-		r.log.Errorf("Error inserting entity: %v", err)
-		var zero T
-		return zero, fmt.Errorf("Error inserting entity: %v", err)
-	}
-
-	return entity, err
+    return entity, nil
 }
+
+
 
 // Update modifies an existing entity in the database
 func (r *GenericRepoInit[T]) Update(entity T) (T, error) {
-	// Ensure the primary key is set
-	if r.db.Model(&entity).Where("UserID = ?", r.db.Statement.Schema.PrimaryFieldDBNames).RowsAffected == 0 {
-		r.log.Errorf("Primary key missing for entity: %v", entity)
-		var zero T
-		return zero, fmt.Errorf("primary key missing for entity")
-	}
+    r.log.Infof("Got to the Update: %+v", entity)
 
-	err := r.db.Save(entity).Error
-	if err != nil {
-		r.log.Errorf("Error updating entity: %v", err)
-		var zero T
-		return zero, err
-	}
+    // Log the state before saving
+    r.log.Infof("Before save: %+v", entity)
 
-  
+    // Perform the update
+    if err := r.db.Save(entity).Error; err != nil {
+        var zero T
+        r.log.Errorf("Error updating entity: %v", err)
+        return zero, err
+    }
 
-	return entity, nil
+    // Log the state after saving
+    r.log.Infof("After save: %+v", entity)
+
+    // Return the updated entity
+    return entity, nil
 }
 
 // Delete removes an entity from the database by id
