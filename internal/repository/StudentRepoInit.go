@@ -52,14 +52,14 @@ func (r *StudentRepoInit) Get() ([]*models.Student, error) {
 // FindBySchoolId retrieves all the students associated with a specific school ID
 func (r *StudentRepoInit) FindBySchoolId(schoolId int) ([]*models.Student, error) {
 	if schoolId <= 0 {
-		return nil, fmt.Errorf("invalid school ID")
+		return nil, fmt.Errorf("invalid SchoolId: %d", schoolId)
 	}
 
 	var students []*models.Student
-	result := r.generic.db.Where("school_id = ?", schoolId).Find(&students)
+	result := r.generic.db.Where("schoolId = ?", schoolId).Find(&students)
 
 	if result.Error != nil {
-		r.generic.log.WithError(result.Error).Error("failed to find students by school ID")
+		r.generic.log.WithError(result.Error).Error("failed to find students by SchoolId: ", schoolId)
 		return nil, fmt.Errorf("failed to find students by school ID: %w", result.Error)
 	}
 
