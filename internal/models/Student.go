@@ -5,7 +5,7 @@ type Student struct {
 	SchoolId int `gorm:"column:SchoolId"`
 	FirstName string `gorm:"column:FirstName"`
 	LastName string `gorm:"column:LastName"`
-	Photo string `grom:"column:Photo"`
+	Photo string `gorm:"column:Photo"`
 }
 
 func (Student) TableName() string {

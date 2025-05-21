@@ -5,7 +5,7 @@ type Bus struct {
 	BusNumber string `gorm:"column:BusNumber"`
 	RouteId int `gorm:"column:RouteId"`
 	EmployeeId int `gorm:"column:EmployeeId"`
-	Compacity int `gorm:"column:Compacity"`
+	Capacity int `gorm:"column:Capacity"`
 }
 
 func (Bus) TableName() string { return "Buses" }

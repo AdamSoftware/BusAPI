@@ -1,4 +1,4 @@
-package repository
+package repositoryuserrepoinit
 
 import (
 	"Bus-Backend/internal/models"
@@ -60,7 +60,7 @@ func (r *UserRepoInit) Get() ([]*models.User, error) {
 
 func (r *UserRepoInit) FindByRole(employeeRole int) ([]*models.User, error) {
 	var users []*models.User
-	err := r.generic.db.Where("EmployeeRoles = ?", employeeRole).Find(&users).Error
+	err := r.generic.db.Where("EmployeeRoleId = ?", employeeRole).Find(&users).Error
 	// check to see if there was anythign found
 	if err != nil {
 		// check to see if it can find that role that was requested
