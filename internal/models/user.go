@@ -5,7 +5,7 @@ type User struct {
 	Username  string `gorm:"column:Username"`
 	Password  string `gorm:"column:Password"`
 	EmployeeID int    `gorm:"column:EmployeeID"`
-	EmployeeRoles int    `gorm:"column:EmployeeRoles"`
+	EmployeeRoleId int    `gorm:"column:EmployeeRoleId"`
 }
 
 func (User) TableName() string {
