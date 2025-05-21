@@ -1,4 +1,4 @@
-package repositoryuserrepoinit
+package repository
 
 import (
 	"Bus-Backend/internal/models"
