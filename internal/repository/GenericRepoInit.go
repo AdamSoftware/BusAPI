@@ -63,7 +63,7 @@ func (r *GenericRepoInit[T]) Get() ([]T, error) {
 // Insert adds a new entity to the database
 
 func (r *GenericRepoInit[T]) Insert(entity T) (T, error) {
-    err := r.db.Create(&entity).Error // must pass pointer
+    err := r.db.Create(entity).Error // Don't pass a pointer because entity is already a pointer 
     if err != nil {
         r.log.Errorf("Error inserting entity: %v", err)
         var zero T

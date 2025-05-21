@@ -56,7 +56,7 @@ func (r *StudentRepoInit) FindBySchoolId(schoolId int) ([]*models.Student, error
 	}
 
 	var students []*models.Student
-	result := r.generic.db.Where("schoolId = ?", schoolId).Find(&students)
+	result := r.generic.db.Where("SchoolId = ?", schoolId).Find(&students)
 
 	if result.Error != nil {
 		r.generic.log.WithError(result.Error).Error("failed to find students by SchoolId: ", schoolId)
