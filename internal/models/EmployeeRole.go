@@ -1,9 +1,11 @@
 package models
 
 type EmployeeRole struct {
-  EmplyeeRoleId int `json:"id"`
-  RoleName string `json:"role_name"`
+	Id int `gorm:"primaryKey;column:Id"`
+	RoleName string `grom:"column:RoleName"`
 }
 
+func (EmployeeRole) TableName() string { return "EmployeeRoles" }
 
-func (e *EmployeeRole) GetId() int {return e.EmplyeeRoleId}
+
+func (e *EmployeeRole) GetId() int { return e.Id}

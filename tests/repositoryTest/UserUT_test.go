@@ -14,7 +14,7 @@ var db *gorm.DB
 var logger *logrus.Logger
 
 func GetUserId(u models.User) int {
-	return u.UserId
+	return u.Id
 }
 
 func initTestDependencies() {
@@ -93,8 +93,8 @@ func TestUserUpdate(t *testing.T) {
 	}
 
 	// Verify that other fields (like UserId and Password) remain the same
-	if updatedUser.UserId != entity.UserId {
-		t.Errorf("Expected UserId to remain the same: %d, but got: %d", entity.UserId, updatedUser.UserId)
+	if updatedUser.Id != entity.Id {
+		t.Errorf("Expected UserId to remain the same: %d, but got: %d", entity.Id, updatedUser.Id)
 	}
 	if updatedUser.Password != entity.Password {
 		t.Errorf("Expected Password to remain the same: %s, but got: %s", entity.Password, updatedUser.Password)
@@ -144,7 +144,7 @@ func TestUserInsert(t *testing.T) {
 	}
 
 	// Fetch the user by ID from the transaction
-	fetchedUser, err := repo.FindById(insertedUser.UserId)
+	fetchedUser, err := repo.FindById(insertedUser.Id)
 	if err != nil {
 		t.Fatalf("Failed to find user by ID: %v", err)
 	}
@@ -197,22 +197,22 @@ func TestUserDelete(t *testing.T) {
 
     var lastUser models.User
     for _, u := range users {
-        if u.UserId > lastUser.UserId {
+        if u.Id > lastUser.Id {
             lastUser = *u 
         }
     }
 
-    t.Logf("Deleting user with ID: %d", lastUser.UserId)
+    t.Logf("Deleting user with ID: %d", lastUser.Id)
 
     // Perform delete within the transaction
-    err = repo.Delete(lastUser.UserId)
+    err = repo.Delete(lastUser.Id)
     if err != nil {
         t.Fatalf("Failed to delete user: %v", err)
     }
 
 	
     // Try to find the deleted user by ID, should return an error
-    _, err = repo.FindById(lastUser.UserId)
+    _, err = repo.FindById(lastUser.Id)
     if err == nil {
         t.Errorf("Expected error when finding deleted user, but no error occurred")
     }
@@ -246,8 +246,8 @@ func TestFindById(t *testing.T) {
 	}
 
 	// Assert that the fetched user's ID matches the expected ID
-	if user.UserId != UserID {
-		t.Errorf("Expected UserID to be %d, but got %d", UserID, user.UserId)
+	if user.Id != UserID {
+		t.Errorf("Expected UserID to be %d, but got %d", UserID, user.Id)
 	}
 }
 

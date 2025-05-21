@@ -48,3 +48,4 @@ func (r *SchoolRepoInit) Delete(SchoolId int) error {
 func (r *SchoolRepoInit) Get() ([]*models.School, error) {
   return r.generic.Get()
 }
+
