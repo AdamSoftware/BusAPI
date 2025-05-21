@@ -134,7 +134,7 @@ func TestUserInsert(t *testing.T) {
 		Username:    "newuser",
 		Password:    "newpassword",
 		EmployeeID:  1,
-		EmployeeRoles: 2,
+		EmployeeRoleId: 2,
 	}
 
 	// Insert the user
@@ -270,8 +270,8 @@ func TestFindByRole(t *testing.T) {
 
 	// Assert that the returned users have the expected role
 	for _, user := range users {
-		if user.EmployeeRoles != role {
-			t.Errorf("Expected role to be %d, but got %d", role, user.EmployeeRoles)
+		if user.EmployeeRoleId != role {
+			t.Errorf("Expected role to be %d, but got %d", role, user.EmployeeRoleId)
 		}
 	}
 }
