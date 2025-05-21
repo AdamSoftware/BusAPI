@@ -2,12 +2,13 @@ package models
 
 
 type Employee struct {
-  EmployeeId int `json:"id"`
-  FirstName string `json:"first_name"`
-  LastName string `json:"last_name"`
-  Phone string `json:"phone"`
-  Email string `json:"email"`
+	Id int `gorm:"primaryKey;column:Id"`
+	FirstName string `gorm:"column:FirstName"`
+	LastName string `gorm:"column:LastName"`
+	Phone string `gorm:"column:Phone"`
+	Email string `gorm:"column:Email"`
 }
 
+func (Employee) TableName() string { return "Employees" }
 
-func (e *Employee) GetId() int {return e.EmployeeId}
+func (e *Employee) GetId() int {return e.Id}

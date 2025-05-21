@@ -4,6 +4,9 @@ import (
 )
 
 
+type Entity interface{GetId() int}
+
+
 type GenericRepo[T any] interface {
   FindById(id int) (*T, error)
   Get() ([]*T, error)

@@ -1,12 +1,14 @@
 package models
 
 type Bus struct {
-  BusId int `json:"id"`
-  BusNumber string `json:"bus_number"`
-  RouteId int `json:"route_id"` 
-  EmployeeId int `json:"employee_id"`
-  Compacity int `json:"compacity"`
+	Id int `gorm:"primaryKey;column:Id"`
+	BusNumber string `gorm:"column:BusNumber"`
+	RouteId int `gorm:"column:RouteId"`
+	EmployeeId int `gorm:"column:EmployeeId"`
+	Capacity int `gorm:"column:Capacity"`
 }
 
+func (Bus) TableName() string { return "Buses" }
 
-func (b *Bus) GetId() int {return b.BusId}
+
+func (b *Bus) GetId() int {return b.Id}

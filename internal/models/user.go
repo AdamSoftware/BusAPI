@@ -1,14 +1,17 @@
 package models
 
 type User struct {
-  UserId int `json:"id"`
-  EmployeeId int `json:"employee_id"`
-  EmployeeRoles int `json:"employee_roles"` 
-  Username string `json:"username"`
-  Password string `json:"password"`
+	Id        int    `gorm:"primaryKey;column:Id"`
+	Username  string `gorm:"column:Username"`
+	Password  string `gorm:"column:Password"`
+	EmployeeID int    `gorm:"column:EmployeeID"`
+	EmployeeRoleId int    `gorm:"column:EmployeeRoleId"`
 }
 
+func (User) TableName() string {
+	return "Users"
+}
 
 func (u *User) GetId() int {
-  return u.UserId
+	return u.Id
 }
