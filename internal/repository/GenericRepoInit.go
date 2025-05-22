@@ -41,7 +41,7 @@ func (r *GenericRepoInit[T]) FindById(id int) (T, error) {
 	var entity T
 	err := r.db.First(&entity, id).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		Logging.Logs.Warn("Entity with id %d not found", id)
+		Logging.Logs.Warnf("Entity with id %d not found", id)
 		var zero T
 		return zero, fmt.Errorf("Entity with id %d not found: %w", id, err)
 	}
