@@ -41,7 +41,7 @@ func (r *GenericRepoInit[T]) FindById(id int) (T, error) {
 	var entity T
 	err := r.db.First(&entity, id).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		r.log.Warnf("Entity with id %d not found", id)
+		Logging.Logs.Warn("Entity with id %d not found", id)
 		var zero T
 		return zero, fmt.Errorf("Entity with id %d not found: %w", id, err)
 	}
@@ -54,7 +54,7 @@ func (r *GenericRepoInit[T]) Get() ([]T, error) {
 	var entities []T
 	err := r.db.Find(&entities).Error
 	if err != nil {
-		r.log.Errorf("Error retrieving entities: %v", err)
+		Logging.Logs.Errorf("Error retrieving entities: %v", err)
 		return nil, fmt.Errorf("Error retrieving entities: %v", err)
 	}
 
@@ -66,7 +66,7 @@ func (r *GenericRepoInit[T]) Get() ([]T, error) {
 func (r *GenericRepoInit[T]) Insert(entity T) (T, error) {
     err := r.db.Create(entity).Error // Don't pass a pointer because entity is already a pointer 
     if err != nil {
-        r.log.Errorf("Error inserting entity: %v", err)
+				Logging.Logs.Errorf("Error inserting entity: %v", err)
         var zero T
         return zero, fmt.Errorf("Error inserting entity: %v", err)
     }
@@ -78,20 +78,20 @@ func (r *GenericRepoInit[T]) Insert(entity T) (T, error) {
 
 // Update modifies an existing entity in the database
 func (r *GenericRepoInit[T]) Update(entity T) (T, error) {
-    r.log.Infof("Got to the Update: %+v", entity)
+    Logging.Logs.Infof("Got to the Update: %+v", entity)
 
     // Log the state before saving
-    r.log.Infof("Before save: %+v", entity)
+    Logging.Logs.Infof("Before save: %+v", entity)
 
     // Perform the update
     if err := r.db.Save(entity).Error; err != nil {
         var zero T
-        r.log.Errorf("Error updating entity: %v", err)
+				Logging.Logs.Errorf("Error updating entity: %v", err)
         return zero, err
     }
 
     // Log the state after saving
-    r.log.Infof("After save: %+v", entity)
+    Logging.Logs.Infof("After save: %+v", entity)
 
     // Return the updated entity
     return entity, nil
@@ -103,18 +103,18 @@ func (r *GenericRepoInit[T]) Delete(id int) error {
 	err := r.db.First(&entity, id).Error
 	// check if the entity was found if not throw error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		r.log.Warnf("Entity with id %d not found for deletion", id)
+		Logging.Logs.Warnf("Entity with id %d not found for deletion", id)
 		return fmt.Errorf("Entity with id %d not found: %w", id, err)
 	} else if err != nil {
 		// check to see if there was any other error found
-		r.log.Errorf("Something happened: %v", err)
+		Logging.Logs.Errorf("Something happened: %v", err)
 		return fmt.Errorf("Something happened: %v", err)
 	}
 
 	// if the database never delete the entity return error
 	err = r.db.Delete(&entity).Error
 	if err != nil {
-		r.log.Errorf("Error deleting entity: %v", err)
+		Logging.Logs.Errorf("Error deleting entity: %v", err)
 		return fmt.Errorf("Error deleting entity: %v", err)
 	}
 
