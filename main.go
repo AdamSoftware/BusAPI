@@ -4,7 +4,6 @@ import (
 	"Bus-Backend/internal/Logging"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"log" // Rename this to avoid conflict with logrus
 )
 
 func main() {
