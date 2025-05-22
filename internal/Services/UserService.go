@@ -10,4 +10,5 @@ type UserService interface {
 	Update(user *models.User) (*models.User, error)
 	Delete(id int) error
 	Login(username, password string) (*models.User, error)
+	ResetPassword(userId int, newPassword string) error
 }

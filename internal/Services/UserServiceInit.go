@@ -96,3 +96,35 @@ func (s *UserServiceInit) Update(user *models.User) (*models.User, error) {
 func (s *UserServiceInit) Delete(id int) error {
 	return s.genericService.Delete(id)
 }
+
+
+// will set up token stuff for reset password later this is local testing for the logic 
+// will also setup the user getting an email or sms to reset there password will be a number thing that will let them in to reset of there phone 
+// ResetPassword updates the password for a user
+func (s *UserServiceInit) ResetPassword(userId int, newPassword string) error {
+	// Hash the new password
+	hashedPassword, err := HashPassword(newPassword)
+	if err != nil {
+		Logging.Logs.Errorf("Error hashing password: %v", err)
+		return err
+	}
+
+	// Find the user by ID
+	user, err := s.FindById(userId)
+	if err != nil {
+		Logging.Logs.Errorf("Error finding user by ID: %v", err)
+		return err
+	}
+
+	// Update the user's password
+	user.Password = hashedPassword
+
+	// Save the updated user
+	_, err = s.Update(user)
+	if err != nil {
+		Logging.Logs.Errorf("Error updating user password: %v", err)
+		return err
+	}
+
+	return nil
+}
