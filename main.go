@@ -13,12 +13,13 @@ func main() {
 	dsn := "Database/bus_database.db"
 	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatalf("Failed to connect to database: %v", err)
+		Logging.Logs.Fatalf("Failed to connect to database: %v", err)
 	}
 
 	// Attach DB hook to global logger
 	Logging.Logs.AddHook(Logging.NewGormHook(db))
 
+	// Tesing Logs
 	Logging.Logs.Info("Database connection established successfully")
 	Logging.Logs.Warn("Logging initialized successfully")
 	Logging.Logs.Error("GormHook attached to logger successfully")
