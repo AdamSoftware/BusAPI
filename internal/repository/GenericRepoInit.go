@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"Bus-Backend/internal/Logging"
 	"gorm.io/gorm"
 )
 
@@ -26,7 +27,7 @@ func NewGenericRepo[T models.GenericModel](db *gorm.DB, logger *logrus.Logger) (
 
 	// if the logger was never initialized then create a new one
 	if logger == nil {
-		logger = logrus.New()
+		return nil, errors.New("Logger was never initialized")
 	}
 
 	logger.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})
