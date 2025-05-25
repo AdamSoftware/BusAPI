@@ -17,7 +17,7 @@ type GenericRepoInit[T models.GenericModel] struct {
 	log *logrus.Logger
 }
 
-func NewGenericRepo[T models.GenericModel](db *gorm.DB, logger *logrus.Logger) (*GenericRepoInit[T], error) {
+func NewGenericRepo[T models.GenericModel](db *gorm.DB) (*GenericRepoInit[T], error) {
 
 	// if the database was never found then return an error
 	if db == nil {
@@ -25,15 +25,8 @@ func NewGenericRepo[T models.GenericModel](db *gorm.DB, logger *logrus.Logger) (
 		return nil, fmt.Errorf("Failed to create GenericRepo: %w", err)
 	}
 
-	// if the logger was never initialized then create a new one
-	if logger == nil {
-		return nil, errors.New("Logger was never initialized")
-	}
 
-	logger.SetFormatter(&logrus.TextFormatter{FullTimestamp: true})
-	logger.SetLevel(logrus.InfoLevel)
-
-	return &GenericRepoInit[T]{db: db, log: logger}, nil
+	return &GenericRepoInit[T]{db: db}, nil
 }
 
 // FindById returns a single entity by id

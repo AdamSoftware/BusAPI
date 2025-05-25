@@ -15,7 +15,7 @@ type BusRepoInit struct {
 
 func NewBusRepo(db *gorm.DB, logger *logrus.Logger) (*BusRepoInit, error) {
   // Create a new instance of GenericRepoInit for Bus model
-  genericRepo, err := NewGenericRepo[*models.Bus](db, logger)
+  genericRepo, err := NewGenericRepo[*models.Bus](db)
   if err != nil {
     return nil, fmt.Errorf("failed to create BusRepo: %w", err)
   }

@@ -44,6 +44,9 @@ CREATE TABLE Students (
     FirstName TEXT NOT NULL,
     LastName TEXT NOT NULL,
     Photo TEXT,
+    Address TEXT NOT NULL,
+    Latitude REAL,
+    Longitude REAL,
     SchoolId INT NOT NULL,
     FOREIGN KEY (SchoolId) REFERENCES Schools(Id)
 );
@@ -97,10 +100,10 @@ INSERT INTO Users (Id, EmployeeId, EmployeeRoleId, Username, Password) VALUES
 (3, 3, 2, 'emilyj', 'hashed_password_3');
 
 -- Insert Students
-INSERT INTO Students (Id, FirstName, LastName, Photo, SchoolId) VALUES
-(1, 'Michael', 'Brown', 'michael.jpg', 1),
-(2, 'Sarah', 'Miller', 'sarah.jpg', 2),
-(3, 'David', 'Wilson', 'david.jpg', 3);
+INSERT INTO Students (Id, FirstName, LastName, Photo, Address, SchoolId) VALUES
+(1, 'Michael', 'Brown', 'michael.jpg', '1212 Test St', 1),
+(2, 'Sarah', 'Miller', 'sarah.jpg', '1434 Test St', 2),
+(3, 'David', 'Wilson', 'david.jpg', '1989 Test St', 3);
 
 -- Insert Buses
 INSERT INTO Buses (Id, RouteId, EmployeeId, BusNumber, Capacity) VALUES

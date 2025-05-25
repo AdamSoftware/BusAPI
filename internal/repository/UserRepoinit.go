@@ -4,8 +4,7 @@ import (
 	"Bus-Backend/internal/models"
 	"errors"
 	"fmt"
-
-	"github.com/sirupsen/logrus"
+	"Bus-Backend/internal/Logging"
 	"gorm.io/gorm"
 )
 
@@ -14,14 +13,14 @@ type UserRepoInit struct {
 	generic *GenericRepoInit[*models.User]
 }
 
-func NewUserRepo(db *gorm.DB, logger *logrus.Logger) (*UserRepoInit, error) {
+func NewUserRepo(db *gorm.DB) (*UserRepoInit, error) {
 
-	if db == nil || logger == nil {
+	if db == nil{
 		return nil, fmt.Errorf("database or logger is nil")
 	}
 
 	// Create a new instance of GenericRepoInit for User model
-	genericRepo, err := NewGenericRepo[*models.User](db, logger)
+	genericRepo, err := NewGenericRepo[*models.User](db)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create UserRepo: %w", err)
 	}
@@ -65,8 +64,10 @@ func (r *UserRepoInit) FindByRole(employeeRole int) ([]*models.User, error) {
 	if err != nil {
 		// check to see if it can find that role that was requested
 		if errors.Is(err, gorm.ErrRecordNotFound) {
+			Logging.Logs.Warnf("no users found with role %d: %v", employeeRole, err)
 			return nil, fmt.Errorf("no users found with role %d: %w", employeeRole, err)
 		}
+		Logging.Logs.Warnf("error retrieving users with role %d: %v", employeeRole, err)
 		// error if it cound't find anything about that role or that person
 		return nil, fmt.Errorf("error retrieving users with role %d: %w", employeeRole, err)
 	}
