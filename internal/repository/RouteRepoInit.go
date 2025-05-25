@@ -2,7 +2,6 @@ package repository
 
 import (
   "Bus-Backend/internal/models"
-  "github.com/sirupsen/logrus"
   "gorm.io/gorm"
   "fmt"
 )
@@ -12,8 +11,8 @@ type RouteRepoInit struct {
   generic *GenericRepoInit[*models.Route]
 }
 
-func NewRouteRepo(db *gorm.DB, logger *logrus.Logger) (*RouteRepoInit, error) {
-  genericRepo, err := NewGenericRepo[*models.Route](db, logger)
+func NewRouteRepo(db *gorm.DB) (*RouteRepoInit, error) {
+  genericRepo, err := NewGenericRepo[*models.Route](db)
   if err != nil {
     return nil, fmt.Errorf("failed to create RouteRepo: %w", err)
   }

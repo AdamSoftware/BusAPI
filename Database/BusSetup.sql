@@ -45,6 +45,8 @@ CREATE TABLE Students (
     LastName TEXT NOT NULL,
     Photo TEXT,
     Address TEXT NOT NULL,
+    Latitude REAL,
+    Longitude REAL,
     SchoolId INT NOT NULL,
     FOREIGN KEY (SchoolId) REFERENCES Schools(Id)
 );

@@ -3,7 +3,6 @@ package repository
 
 import (
   "Bus-Backend/internal/models"
-  "github.com/sirupsen/logrus"
   "gorm.io/gorm"
   "fmt"
 )
@@ -14,8 +13,8 @@ type BusStudentRepoInit struct {
 }
 
 
-func NewBusStudentRepo(db *gorm.DB, logger *logrus.Logger) (*BusStudentRepoInit, error) {
-  genericRepo, err := NewGenericRepo[*models.BusStudent](db, logger)
+func NewBusStudentRepo(db *gorm.DB) (*BusStudentRepoInit, error) {
+  genericRepo, err := NewGenericRepo[*models.BusStudent](db)
   if err != nil {
     return nil, fmt.Errorf("failed to create BusStudentRepo: %w", err)
   }

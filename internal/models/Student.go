@@ -7,6 +7,8 @@ type Student struct {
 	LastName string `gorm:"column:LastName"`
 	Photo string `gorm:"column:Photo"`
 	Address string `gorm:"column:Address"`
+	Latitude float64 `gorm:"column:Latitude"`
+	Longitude float64 `gorm:"column:Longitude"`
 }
 
 func (Student) TableName() string {
