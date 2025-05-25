@@ -14,10 +14,11 @@ type UserServiceInit struct {
 	Userrepo       *repository.UserRepoInit
 }
 
-func NewUserService(repo *repository.GenericRepoInit[*models.User]) UserService {
+func NewUserService(repo *repository.GenericRepoInit[*models.User], Userrepo *repository.UserRepoInit) UserService {
 	return &UserServiceInit{
 		genericService: NewGenericServiceInit(repo),
 		repo:           repo,
+		Userrepo:       Userrepo,
 	}
 }
 

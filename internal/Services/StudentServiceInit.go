@@ -24,11 +24,12 @@ type StudentServiceInit struct {
 	mapBoxToken  		string 
 }
 
-func NewStudentService(repo *repository.GenericRepoInit[*models.Student], mapBoxToken string) StudentService {
+func NewStudentService(repo *repository.GenericRepoInit[*models.Student], mapBoxToken string, Studentrepo *repository.StudentRepoInit) StudentService {
 	return &StudentServiceInit{
 		genericService: NewGenericServiceInit(repo),
 		repo:           repo,
 		mapBoxToken:    mapBoxToken,
+		Studentrepo:     Studentrepo,
 	}
 }
 
