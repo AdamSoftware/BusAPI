@@ -3,9 +3,9 @@ package services
 import "Bus-Backend/internal/models"
 
 type SchoolService interface {
-	Get() ([]*models.User, error)
-	FindById(id int) (*models.User, error)
-	Insert(user *models.User) (*models.User, error)
-	Update(user *models.User) (*models.User, error)
+	Get() ([]*models.School, error)
+	FindById(id int) (*models.School, error)
+	Insert(user *models.School) (*models.School, error)
+	Update(user *models.School) (*models.School, error)
 	Delete(id int) error
 }

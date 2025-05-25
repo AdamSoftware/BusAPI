@@ -11,6 +11,7 @@ import (
 type UserServiceInit struct {
 	genericService GenericService[*models.User]
 	repo           *repository.GenericRepoInit[*models.User]
+	Userrepo       *repository.UserRepoInit
 }
 
 func NewUserService(repo *repository.GenericRepoInit[*models.User]) UserService {
@@ -66,20 +67,12 @@ func (s *UserServiceInit) FindById(id int) (*models.User, error) {
 
 // Get users by role ID
 func (s *UserServiceInit) FindByRole(roleId int) ([]*models.User, error) {
-	users, err := s.genericService.Get()
+	users, err := s.Userrepo.FindByRole(roleId)
 	if err != nil {
-		Logging.Logs.Errorf("Error retrieving users by role: %v", err)
+		Logging.Logs.Errorf("Error thrown on the service layer from repo: %v", err)
 		return nil, err
 	}
-
-	var filtered []*models.User
-	for _, u := range users {
-		if u.EmployeeRoleId == roleId {
-			filtered = append(filtered, u)
-		}
-	}
-
-	return filtered, nil
+	return users, nil
 }
 
 // Insert a new user
