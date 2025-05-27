@@ -1,8 +1,10 @@
 package models
 
+import "time"
+
 type Route struct {
 	Id int `gorm:"primaryKey;column:Id"`
-	BusId int `gorm:"column:BusId"`
+	DepartureTime time.Time `gorm:"column:DepartureTime"`
 	GeoJson string `gorm:"column:GeoJson"`
 	RouteName string `gorm:"column:RouteName"`
 }

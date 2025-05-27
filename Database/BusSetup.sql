@@ -3,10 +3,8 @@
 CREATE TABLE Routes (
     Id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
     DepartureTime DATETIME NOT NULL,
-    BusId INT NOT NULL,
     GeoJson TEXT NOT NULL, 
     RouteName TEXT,
-    FOREIGN KEY (BusId) REFERENCES Buses(Id)
 );
 
 CREATE TABLE RouteGroups (
@@ -70,7 +68,6 @@ CREATE TABLE Buses (
     Id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,  
     EmployeeId INT NOT NULL,
     BusNumber TEXT NOT NULL,
-    Capacity INT NOT NULL,
     FOREIGN KEY (EmployeeId) REFERENCES Employees(Id)
 );
 
@@ -95,13 +92,19 @@ CREATE TABLE Students (
     FOREIGN KEY (SchoolId) REFERENCES Schools(Id)
 );
 
--- BUS-STUDENT RELATION
-CREATE TABLE BusStudents (
+create StudentBusRouteStops (
     Id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
     BusId INT NOT NULL,
     StudentId INT NOT NULL,
+    RouteId INT NOT NULL,
+    PickupStopId INT,     -- nullable if only dropoff or not needed
+    DropoffStopId INT,    -- nullable if only pickup or not needed
+    HasShownUp BOOLEAN NOT NULL DEFAULT 0,
     FOREIGN KEY (BusId) REFERENCES Buses(Id),
-    FOREIGN KEY (StudentId) REFERENCES Students(Id)
+    FOREIGN KEY (StudentId) REFERENCES Students(Id),
+    FOREIGN KEY (RouteId) REFERENCES Routes(Id),
+    FOREIGN KEY (PickupStopId) REFERENCES Stops(Id),
+    FOREIGN KEY (DropoffStopId) REFERENCES Stops(Id)
 );
 
 -- ENUM: EMPLOYEE ROLES
@@ -116,9 +119,45 @@ CREATE TABLE Schools (
     SchoolName TEXT NOT NULL
 );
 
----------------------------------------------------------
--- INSERTS
----------------------------------------------------------
+
+-- Insert RouteGroups
+INSERT INTO RouteGroups (Id, Name) VALUES
+(1, 'Morning Routes'),
+(2, 'Afternoon Routes');
+
+-- Insert BusRouteGroups
+INSERT INTO BusRouteGroups (Id, BusId, RouteGroupId) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 1);
+
+-- Insert Routes
+INSERT INTO Routes (Id, DepartureTime, GeoJson, RouteName) VALUES
+(1, '2025-05-25 07:00:00', '{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-88.4154,44.2619],[-88.4094,44.2719]]},"properties":{"name":"Route A","color":"#FF0000"}}', 'Route A'),
+(2, '2025-05-25 15:00:00', '{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-88.4154,44.2619],[-88.4194,44.2819]]},"properties":{"name":"Route B","color":"#0000FF"}}', 'Route B');
+
+-- Insert RouteGroupRoutes
+INSERT INTO RouteGroupRoutes (Id, RouteGroupId, RouteId) VALUES
+(1, 1, 1),
+(2, 2, 2);
+
+-- Insert StopTypes
+INSERT INTO StopType (Id, TypeName) VALUES
+(1, 'Pickup Point'),
+(2, 'Dropoff Point'),
+(3, 'Cross Stop');
+
+-- Insert Stops
+INSERT INTO Stops (Id, StopName, Latitude, Longitude, StopTypeId) VALUES
+(1, 'Main St & 1st Ave', 44.2620, -88.4155, 1),
+(2, 'Central Park', 44.2700, -88.4100, 3),
+(3, 'Elm Street', 44.2800, -88.4190, 2);
+
+-- Insert RouteStops
+INSERT INTO RouteStops (Id, RouteId, StopId, StopOrder) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 2),
+(3, 2, 3, 1);
 
 -- Insert Employee Roles
 INSERT INTO EmployeeRoles (Id, RoleName) VALUES
@@ -150,80 +189,14 @@ INSERT INTO Students (Id, FirstName, LastName, Photo, Address, Latitude, Longitu
 (3, 'David', 'Wilson', 'david.jpg', '1989 Test St', 44.2819, -88.4194, 3);
 
 -- Insert Buses
-INSERT INTO Buses (Id, EmployeeId, BusNumber, Capacity) VALUES
-(1, 1, 'BC123', 40),
-(2, 2, 'YZ789', 50),
-(3, 3, 'MN456', 35);
+INSERT INTO Buses (Id, EmployeeId, BusNumber) VALUES
+(1, 1, 'BC123'),
+(2, 2, 'YZ789'),
+(3, 3, 'MN456');
 
--- Insert Bus-Student Assignments
-INSERT INTO BusStudents (Id, BusId, StudentId) VALUES
-(1, 1, 1), 
-(2, 1, 2),
-(3, 2, 3);
-
--- Insert RouteGroups
-INSERT INTO RouteGroups (Id, Name) VALUES
-(1, 'Morning Routes'),
-(2, 'Afternoon Routes');
-
--- Insert BusRouteGroups (assign buses to route groups)
-INSERT INTO BusRouteGroups (Id, BusId, RouteGroupId) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 2, 1);
-
--- Insert Routes
-INSERT INTO Routes (Id, DepartureTime, BusId, GeoJson, RouteName) VALUES
-(1, '2025-05-25 07:00:00', 1, '{
-    "type": "Feature",
-    "geometry": {
-        "type": "LineString",
-        "coordinates": [
-            [-88.4154, 44.2619], 
-            [-88.4094, 44.2719]
-        ]
-    },
-    "properties": {
-        "name": "Route A",
-        "color": "#FF0000"
-    }
-}', 'Route A'),
-
-(2, '2025-05-25 15:00:00', 2, '{
-    "type": "Feature",
-    "geometry": {
-        "type": "LineString",
-        "coordinates": [
-            [-88.4154, 44.2619], 
-            [-88.4194, 44.2819]
-        ]
-    },
-    "properties": {
-        "name": "Route B",
-        "color": "#0000FF"
-    }
-}', 'Route B');
-
--- Insert RouteGroupRoutes (link routes to route groups)
-INSERT INTO RouteGroupRoutes (Id, RouteGroupId, RouteId) VALUES
-(1, 1, 1),
-(2, 2, 2);
-
--- Insert StopTypes
-INSERT INTO StopType (Id, TypeName) VALUES
-(1, 'Pickup Point'),
-(2, 'Dropoff Point'),
-(3, 'Cross Stop');
-
--- Insert Stops
-INSERT INTO Stops (Id, StopName, Latitude, Longitude, StopTypeId) VALUES
-(1, 'Main St & 1st Ave', 44.2620, -88.4155, 1),
-(2, 'Central Park', 44.2700, -88.4100, 3),
-(3, 'Elm Street', 44.2800, -88.4190, 2);
-
--- Insert RouteStops (assign stops to routes with order)
-INSERT INTO RouteStops (Id, RouteId, StopId, StopOrder) VALUES
-(1, 1, 1, 1),
-(2, 1, 2, 2),
-(3, 2, 3, 1);
+-- Insert StudentBusRouteStops
+INSERT INTO StudentBusRouteStops (Id, BusId, StudentId, RouteId, PickupStopId, DropoffStopId, HasShownUp) VALUES
+(1, 1, 1, 1, 1, 2, 0),
+(2, 1, 2, 1, 1, 2, 0),
+(3, 2, 3, 2, NULL, 3, 0);
 
