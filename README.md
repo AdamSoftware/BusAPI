@@ -43,7 +43,7 @@ A modern RESTful API built in Go, empowering users to create, manage, and explor
 
    ```
    MAPBOX_API_KEY=your_mapbox_key
-   JWT_SECRET=your_jwt_secret 'U can also bypase this by just logging in everytime when u are trying things'
+   JWT_SECRET=your_jwt_secret
    ```
 
 3. **Install dependencies:**
