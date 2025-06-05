@@ -4,7 +4,6 @@ import (
   "Bus-Backend/internal/models"
   "fmt"
   "gorm.io/gorm"
-  "github.com/sirupsen/logrus"
 )
 
 type EmployeeRepoInit struct {
@@ -12,8 +11,8 @@ type EmployeeRepoInit struct {
 }
 
 
-func NewEmployeeRepo(db *gorm.DB, logger *logrus.Logger) (*EmployeeRepoInit, error) {
-  genericRepo, err := NewGenericRepo[*models.Employee](db, logger)
+func NewEmployeeRepo(db *gorm.DB) (*EmployeeRepoInit, error) {
+  genericRepo, err := NewGenericRepo[*models.Employee](db)
   if err != nil {
     return nil, fmt.Errorf("failed to create EmployeeRepo: %w", err)
   }

@@ -2,6 +2,7 @@ package repository
 
 import (
   "Bus-Backend/internal/models"
+	"Bus-Backend/internal/Logging"
   "gorm.io/gorm"
   "fmt"
 )
@@ -44,4 +45,24 @@ func (r *RouteRepoInit) Delete(RouteId int) error {
 // Get CRUD operation returning all entities
 func (r *RouteRepoInit) Get() ([]*models.Route, error) {
   return r.generic.Get()
+}
+
+
+// GetAllRoutesByStopId retrieves all routes associated with a specific stop ID
+func (r *RouteRepoInit) GetAllRoutesByStopId(stopId int) ([]*models.Route, error) {
+	var routes []*models.Route
+	// using a join to get all the routes under the routeStops table 
+	// where the stopId matches the one getting passed into it
+	err := r.generic.db. 
+	  Table("Route").
+		Joins("JOIN RouteStops ON RouteStops.RouteId = Route.Id").
+		Where("RouteStops.StopId = ?", stopId).
+		Find(&routes).Error
+	
+	if err != nil {
+		Logging.Logs.Warnf("failed to get routes by stop ID %d: %w", stopId, err)
+		return nil, fmt.Errorf("failed to get routes by stop ID %d: %w", stopId, err) 
+	}
+
+	return routes, nil
 }

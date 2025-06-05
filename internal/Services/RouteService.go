@@ -8,4 +8,5 @@ type RouteService interface {
 	Insert(user *models.Route) (*models.Route, error)
 	Update(user *models.Route) (*models.Route, error)
 	Delete(id int) error
+	GetAllRoutesByStopId(stopId int) ([]*models.Route, error)
 }

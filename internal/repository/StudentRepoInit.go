@@ -4,7 +4,6 @@ import (
 	"Bus-Backend/internal/models"
 	"fmt"
 
-	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
 
@@ -13,9 +12,9 @@ type StudentRepoInit struct {
 	generic *GenericRepoInit[*models.Student]
 }
 
-func NewStudentRepo(db *gorm.DB, logger *logrus.Logger) (*StudentRepoInit, error) {
+func NewStudentRepo(db *gorm.DB) (*StudentRepoInit, error) {
 	// Create a new instance of GenericRepoInit for Student model
-	genericRepo, err := NewGenericRepo[*models.Student](db, logger)
+	genericRepo, err := NewGenericRepo[*models.Student](db)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create StudentRepo: %w", err)
 	}

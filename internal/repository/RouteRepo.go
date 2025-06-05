@@ -10,4 +10,5 @@ type RouteRepo interface {
   Update(Route *models.Route) (*models.Route, error)
   Delete(RouteId int) error
   Get() ([]*models.Route, error)
+	GetAllRoutesByStopId(stopId int) ([]*models.Route, error)
 }
