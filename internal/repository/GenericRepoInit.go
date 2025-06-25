@@ -6,7 +6,6 @@ import (
 	"Bus-Backend/internal/models"
 	"errors"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"Bus-Backend/internal/Logging"
 	"gorm.io/gorm"
 )
@@ -14,7 +13,6 @@ import (
 // this is for the course options of the different repos
 type GenericRepoInit[T models.GenericModel] struct {
 	db  *gorm.DB
-	log *logrus.Logger
 }
 
 func NewGenericRepo[T models.GenericModel](db *gorm.DB) (*GenericRepoInit[T], error) {
